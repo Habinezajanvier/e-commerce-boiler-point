@@ -8,43 +8,78 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Hidden from '@material-ui/core/Hidden';
+import Carousel from '@brainhubeu/react-carousel';
 
 const useStyles = makeStyles({
   card: {
-    display: 'flex',
+    position: "relative",
+    maxHeight: "22rem"
   },
   cardDetails: {
-    flex: 1,
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+    backgroundColor: "rgba(0, 0, 0, .8)",
+    color: "#fff"
   },
   cardMedia: {
-    width: 360,
+    objectFit: 'cover'
   },
 });
 
+const featuredPosts = [
+  {
+    title: 'Featured post',
+    date: 'Nov 12',
+    description:
+      'This is a wider card ',
+    image: 'https://source.unsplash.com/random',
+    imageText: 'Image Text',
+  },
+  {
+    title: 'Post title',
+    date: 'Nov 11',
+    description:
+      'This is a wider card ',
+    image: 'https://source.unsplash.com/random',
+    imageText: 'Image Text',
+  },
+  {
+    title: 'Second Post title',
+    date: 'Nov 11',
+    description:
+      'This is a wider card ',
+    image: 'https://source.unsplash.com/random',
+    imageText: 'Image Text',
+  },
+];
+
 export default function FeaturedPost(props) {
   const classes = useStyles();
-  const { post } = props;
+  // const { post } = props;
 
   return (
-    <Grid item xs={12} md={6}>
-      <CardActionArea component="a" href="#">
-        <Card className={classes.card}>
-          <Hidden xsDown>
+    <Carousel 
+        autoPlay={1000}
+        // arrows
+        infinite
+        slidesPerPage={1}
+        slidesPerScroll={1}
+      >
+      {featuredPosts.map((post) => (
+        <div className={classes.card}>
           <div className={classes.cardDetails}>
-            <CardContent>
-              <Typography component="h2" variant="h5">
-                {post.title}
-              </Typography>
-              <Typography variant="subtitle1" paragraph>
-                {post.description}
-              </Typography>
-            </CardContent>
+            <Typography component="h2" variant="h5">
+              {post.title}
+            </Typography>
+            <Typography variant="subtitle1" paragraph>
+              {post.description}
+            </Typography> 
           </div>
-          </Hidden>
-          <CardMedia className={classes.cardMedia} image={post.image} title={post.imageTitle} />
-        </Card>
-      </CardActionArea>
-    </Grid>
+          <img className={classes.cardMedia} src={post.image} alt={post.imageTitle} />
+        </div>
+      ))}
+    </Carousel>
   );
 }
 

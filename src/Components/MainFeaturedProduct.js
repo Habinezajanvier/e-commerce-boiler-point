@@ -24,17 +24,32 @@ const useStyles = makeStyles((theme) => ({
     bottom: 0,
     right: 0,
     left: 0,
-    backgroundColor: 'rgba(0,0,0,.3)',
+    backgroundColor: 'rgba(0,0,0,.7)',
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexDirection: "column",
+    width: "100%"
   },
   mainFeaturedPostContent: {
     position: 'relative',
     padding: theme.spacing(3),
-    marginTop: '30%',
+    marginTop: '16%',
     [theme.breakpoints.up('md')]: {
       padding: theme.spacing(6),
       paddingRight: 0,
     },
   },
+  button: {
+    background: "#fff",
+    padding: "1.2rem",
+    borderRadius: "0.4rem",
+    '&:hover': {
+      textDecoration: "none",
+      background: "#1641FF",
+      color: "#fff"
+    }
+  }
 }));
 
 export default function MainFeaturedPost(props) {
@@ -45,22 +60,19 @@ export default function MainFeaturedPost(props) {
     <Paper className={classes.mainFeaturedPost} style={{ backgroundImage: `url(${post.image})` }}>
       {/* Increase the priority of the hero background image */}
       {<img style={{ display: 'none' }} src={post.image} alt={post.imageText} />}
-      <div className={classes.overlay} />
-      <Grid container>
-        <Grid item md={6}>
-          <div className={classes.mainFeaturedPostContent}>
-            <Typography component="h1" variant="h3" color="inherit" gutterBottom>
-              {post.title}
-            </Typography>
-            <Typography variant="h5" color="inherit" paragraph>
-              {post.description}
-            </Typography>
-            <Link variant="subtitle1" href="#">
-              {post.linkText}
-            </Link>
-          </div>
-        </Grid>
-      </Grid>
+      <div className={classes.overlay} >
+        <div className={classes.mainFeaturedPostContent}>
+          <Typography component="h1" variant="h3" color="inherit" gutterBottom>
+            {post.title}
+          </Typography>
+          <Typography variant="h5" color="inherit" paragraph>
+            {post.description}
+          </Typography>
+          <Link className={classes.button} variant="subtitle1" href="#">
+            {post.linkText}
+          </Link>
+        </div>
+      </div>
     </Paper>
   );
 }
